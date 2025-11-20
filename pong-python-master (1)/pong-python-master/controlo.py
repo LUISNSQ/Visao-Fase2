@@ -38,7 +38,6 @@ class ControloVisao:
         fps = 1 / (now - self.before)
         self.before = now
 
-        # YOLO deteção (agora com GPU)
         results = self.model.predict(frame,verbose=False,device=str(self.device) )[0]
         box_definida = None
         area_encontrada = 0
@@ -67,12 +66,12 @@ class ControloVisao:
             # centro
             cx = int((x1 + x2) / 2)
             cy = int((y1 + y2) / 2)
-            cv2.circle(img, (cx, cy), 5, (0, 255, 255), -1)
+            cv2.circle(img, (cx, cy), 5, (255, 0, 0), -1)
 
             pos_norm = cx / w
 
-        cv2.putText(img, f"{fps:.1f} FPS", (10, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(img, f"FPS: {fps:.1f}", (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 
         cv2.imshow("Camera", img)
         cv2.waitKey(1)
